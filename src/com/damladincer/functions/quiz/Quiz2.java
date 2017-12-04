@@ -6,7 +6,7 @@ public class Quiz2 {
 
 	public static void main(String[] args) {
 		boolean result;
-		String s1 = "TR33 0006 1005 1678 6457 8413 23";
+		String s1 = "TR3t0006100516786477841323";
 		result = isIBANValid(s1);
 		if (result == true) {
 			System.out.println("IBAN is valid");
@@ -16,23 +16,22 @@ public class Quiz2 {
 	}
 
 	public static boolean isIBANValid(String iban) {
-		boolean result = false;
-		iban = iban.replaceAll("\\s", "");
+		boolean result = true;
+		iban = iban.replaceAll(" ", "");
 		String alphan = iban.substring(0, 2);
 		String numeric = iban.substring(2);
 
 		if (iban.length() > 34) {
-			return false;
+			result = false;
 		} else if (Character.isLetter(alphan.charAt(0)) && Character.isLetter(alphan.charAt(1))) {
-			for (int i = 2; i < numeric.length(); i++) {
-				if (Character.isDigit(numeric.charAt(i))) {
-					result = true;
-				} else {
-					return false;
+			for (int i = 0; i < numeric.length(); i++) {
+				if (!Character.isDigit(numeric.charAt(i))) {
+					result = false;
+					break;
 				}
 			}
 		} else {
-			return false;
+			result=false;
 		}
 
 		return result;
